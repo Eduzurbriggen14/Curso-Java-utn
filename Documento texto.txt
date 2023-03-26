@@ -2,5 +2,9 @@ Hola mi nombre es Eduardo y estoy aprendiendo Java
 
 Modificando documento desde interfaz de github
 
+<<<<<<< HEAD
 
 351351
+=======
+Modificando nuevamente
+>>>>>>> 0c280cdfcb7f2de3e3ed7e9ff11e55ddfc4b9a16
