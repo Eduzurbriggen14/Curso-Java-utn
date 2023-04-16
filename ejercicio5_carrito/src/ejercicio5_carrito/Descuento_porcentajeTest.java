@@ -7,7 +7,7 @@ import org.junit.Test;
 public class Descuento_porcentajeTest {
 
 	@Test
-	public void testAplicar_descuento_porcentaje() {
+	public void testAplicar_descuento_porcentaje() throws Exception {
 		
 		int desc_porcentaje= 21;
 		

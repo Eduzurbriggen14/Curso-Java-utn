@@ -1,13 +1,16 @@
 package ejercicio5_carrito;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Carrito_main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
 		String ruta = "C:\\\\Users\\\\luisz\\\\Documents\\\\A.JAVA UTN\\\\Clase 5\\\\archivoTxt.txt";
@@ -17,7 +20,7 @@ public class Carrito_main {
 
 	}
 
-	public static void ScannerClass(String ruta) {
+	public static void ScannerClass(String ruta) throws Exception {
 
 		int id = 1;
 		String descripcion_producto;
@@ -40,12 +43,16 @@ public class Carrito_main {
 				cantidad = Double.parseDouble(vector[0]);
 				precio = Double.parseDouble(vector[1]);
 
+				List<Producto> list_prod = new ArrayList<Producto>();
+
 				Producto prod = new Producto();
 				prod.descripcion = descripcion_producto;
 				prod.precio_unidad = precio;
 				prod.idProducto = id;
 
 				id += 1;
+
+				list_prod.add(prod);
 
 				Item_carrito ic = new Item_carrito();
 
@@ -59,7 +66,7 @@ public class Carrito_main {
 
 			}
 			System.out.println("precio total de la compra :" + totalCarrito);
-			
+
 			System.out.println(" ");
 
 			System.out.println("El cliente tiene algun tipo de descuento?? Ingrese Si o No");
@@ -88,17 +95,40 @@ public class Carrito_main {
 					Scanner t_descuento = new Scanner(System.in);
 					int tipo_descuento = t_descuento.nextInt();
 
+					do {
+						if (tipo_descuento > 4 || tipo_descuento <= 0) {
+							System.out.println("debe ingresar 1, 2 , 3 o 4!!!");
+							System.out.println(
+									"ingrese una opcion:\n1-Descuento Fijo\n2-Descuento con porcentaje\n3-Descuento con porcentaje con tope");
+							tipo_descuento = t_descuento.nextInt();
+
+						} else {
+							break;
+
+						}
+
+					} while (tipo_descuento > 4 || tipo_descuento <= 0);
+
 					switch (tipo_descuento) {
 
 					case 1:
 						System.out.println("elegiste Descuento Fijo");
 
 						Descuento_fijo descFijo = new Descuento_fijo();
+						try {
 
-						double total_con_descuento_fijo = descFijo.aplicar_descuento_fijo(totalCarrito);
+							double total_con_descuento_fijo = descFijo.aplicar_descuento_fijo(totalCarrito);
 
-						System.out.println("El total a pagar aplicando Descuento Fijo es: " + total_con_descuento_fijo);
-						break;
+							System.out.println(
+									"El total a pagar aplicando Descuento Fijo es: " + total_con_descuento_fijo);
+							break;
+
+						} catch (Exception e) {
+
+							System.out.println(e.toString());
+
+							break;
+						}
 
 					case 2:
 						System.out.println("elegiste Descuento con Porcentaje");
@@ -110,13 +140,22 @@ public class Carrito_main {
 						Scanner d_porcentaje = new Scanner(System.in);
 
 						int desc_porcentaje = d_porcentaje.nextInt();
-
+						
+						try {
 						double total_con_descuento_porcentaje = descPorcentaje
 								.aplicar_descuento_porcentaje(totalCarrito, desc_porcentaje);
 
 						System.out.println("El total a pagar aplicando el Descuento con Porcentaje es de: "
 								+ total_con_descuento_porcentaje);
 						break;
+						
+						}catch(Exception e) {
+							
+							System.out.println(e.toString());
+							
+							break;
+						}
+						
 
 					case 3:
 						System.out.println("elegiste Descuento con Porcentaje con Tope");
@@ -133,25 +172,24 @@ public class Carrito_main {
 								.aplicar_descuento_porcentajeTope(totalCarrito, desc_porcentaje_con_tope);
 
 						int desc_auxiliar = d_porcentajeTope.getDesc_auxiliar();
-						
-						if(desc_auxiliar !=0) {
-							
-							total_con_descuento_porcentaje_tope= d_porcentajeTope.aplicar_descuento_porcentajeTope(desc_auxiliar, total_con_descuento_porcentaje_tope);
-							System.out.println("El total a pagar aplicando Descuento con Porcentaje con tope es: "+ total_con_descuento_porcentaje_tope);
-							
+
+						if (desc_auxiliar != 0) {
+
+							total_con_descuento_porcentaje_tope = d_porcentajeTope.aplicar_descuento_porcentajeTope(
+									desc_auxiliar, total_con_descuento_porcentaje_tope);
+							System.out.println("El total a pagar aplicando Descuento con Porcentaje con tope es: "
+									+ total_con_descuento_porcentaje_tope);
+
+						} else {
+							System.out.println("El total a pagar aplicando el Descuento con Porcentaje con tope es:"
+									+ total_con_descuento_porcentaje_tope);
 						}
-						else {
-							System.out.println("El total a pagar aplicando el Descuento con Porcentaje con tope es:"+ total_con_descuento_porcentaje_tope);
-						}
-						
-						
+
 						break;
 
 					}
-				
 
-				}
-				else {
+				} else {
 					System.out.println("Palabra incorrecta, debe ingresar SI o NO");
 					break;
 				}

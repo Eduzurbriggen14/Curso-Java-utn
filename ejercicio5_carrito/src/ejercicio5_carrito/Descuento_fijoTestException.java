@@ -1,12 +1,14 @@
 package ejercicio5_carrito;
 
-public class Descuento_fijo extends Descuento {
-	public double total; 
-	public Descuento_fijo() {}
-	
-	
-	
-	public double aplicar_descuento_fijo(double total) throws Exception {
+import org.junit.Test;
+
+public class Descuento_fijoTestException {
+
+	@Test
+	public void testAplicar_descuento_fijo() throws Exception {
+		
+		double total= 10;
+		double desc_fijo=15;
 		double total_con_descuento_fijo;
 		
 		if (total>0) {
@@ -18,7 +20,6 @@ public class Descuento_fijo extends Descuento {
 			
 			throw new Exception("no se puede aplicar un descuento a un carrito cuyo valor total es igual a cero");
 		}
-		return total_con_descuento_fijo;
 	}
 
 }

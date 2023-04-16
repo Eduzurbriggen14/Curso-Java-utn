@@ -7,7 +7,7 @@ import org.junit.Test;
 public class Descuento_fijoTest {
 
 	@Test
-	public void testAplicar_descuento_fijo() {
+	public void testAplicar_descuento_fijo() throws Exception {
 		
 		double total_carrito= 470;
 		
